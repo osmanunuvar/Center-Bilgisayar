@@ -1,0 +1,87 @@
+﻿@{
+    Layout = "_Layout";
+}
+@model List<CarControl.Models.Result>
+
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/CarControl.styles.css" asp-append-version="true" />
+
+
+<div class="container mt-4">
+	<table class="table table-bordered table-striped table-hover" style="width:100%">
+    <thead>
+        <tr>
+            <th>
+                İş Emri Numarası
+            </th>
+            <th>
+                Araba Yok
+            </th>
+            <th>
+                Arıza
+            </th>
+            <th>
+                Mal Yok
+            </th>
+            <th>
+                Enerji Kesildi
+            </th>
+            <th>
+                Toplam
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var obj in Model)
+        {
+            <tr>
+                <td>
+                    @obj.OrderNumber
+                </td>
+                <td>
+                    @obj.WithoutCarTime
+                </td>
+                <td>
+                    @obj.BreakdownTime
+                </td>
+                <td>
+                    @obj.WithoutGoodsTime
+                </td>
+                <td>
+                    @obj.WithoutEnergyTime
+                </td>
+                <td>
+                    @obj.Total
+                </td>
+            </tr>
+        }
+        <tr>
+            <td>
+                Toplam
+            </td>
+            <td>
+                @Model.Select(u=>u.WithoutCarTime).Sum()
+            </td>
+            <td>
+                @Model.Select(u=>u.BreakdownTime).Sum()
+            </td>
+            <td>
+                @Model.Select(u=>u.WithoutGoodsTime).Sum()
+            </td>
+            <td>
+                @Model.Select(u=>u.WithoutEnergyTime).Sum()
+            </td>
+            <td>
+                @Model.Select(u=>u.Total).Sum()
+            </td>
+        </tr>
+    </tbody>
+</table>
+</div>
+
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
